@@ -69,16 +69,6 @@ npx hardhat compile
 
 ---
 
-## 🧪 Testing Non-Transferability
-
-Soulbound Tokens are **non-transferable** by design. To test this:
-
-1. Try to transfer your SBT using a script or via a block explorer.
-2. The transaction will **fail** with a revert message (e.g., `SBT: non-transferable`).
-3. This ensures your SBT cannot be sent or sold to another address.
-
----
-
 ## 🦊 MetaMask Network Settings (Base Sepolia)
 
 To interact with your SBT on Base Sepolia, add the network to MetaMask:
@@ -92,6 +82,40 @@ To interact with your SBT on Base Sepolia, add the network to MetaMask:
 **How to add:**
 1. Open MetaMask, click the network dropdown, and select "Add network."
 2. Enter the details above and save.
+
+---
+
+## 🧪 Testing with Scripts
+
+### 1. Mint or Update Your SBT (`scripts/mintOrUpdate.js`)
+
+This script lets you mint a new SBT or update your existing SBT's metadata.
+
+**Before running:**
+- Update the `contractAddress` variable in the script to your deployed contract address.
+- Update the `tokenURI` variable to your actual IPFS metadata URI (or use the placeholder for testing).
+
+**Run the script:**
+```bash
+npx hardhat run scripts/mintOrUpdate.js --network sepolia_base
+```
+- The script will print the transaction hash and confirm mint/update.
+- Run it again with a different `tokenURI` to test updating your SBT.
+
+### 2. Test Non-Transferability (`scripts/tryTransfer.js`)
+
+This script attempts to transfer an SBT and should always fail, confirming the token is non-transferable.
+
+**Before running:**
+- Update the `address` variable to your deployed contract address.
+- Update the `recipient` variable to any valid Ethereum address (not your own).
+- Update the tokenId (e.g., `1`) to a token you own.
+
+**Run the script:**
+```bash
+npx hardhat run scripts/tryTransfer.js --network sepolia_base
+```
+- You should see an error message: `Transfer failed as expected: SBT: non-transferable`
 
 ---
 
@@ -111,6 +135,7 @@ To interact with your SBT on Base Sepolia, add the network to MetaMask:
 - All data stored off-chain (IPFS)
 
 ---
+
 
 ## 💡 Future Improvements
 
