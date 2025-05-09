@@ -37,7 +37,7 @@ npx hardhat compile
 ## Deploying the Soulbound Token (SBT) Contract
 
 ### 1. **Configure the Network**
-The `hardhat.config.js` is already set up for Base Sepolia:
+The `hardhat.config.js` is already set up for Base Sepolia. No need to change it.
 - RPC URL: `https://sepolia.base.org`
 - Chain ID: `84532`
 
