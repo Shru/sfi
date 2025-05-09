@@ -9,7 +9,7 @@ This project demonstrates a minimal Soulbound Token (SBT) implementation on the 
 
 ### 1. **Clone the Repository**
 ```bash
-git clone <your-repo-url>
+git clone [<your-repo-url>](https://github.com/Shru/sfi.git)
 cd sfi
 ```
 
