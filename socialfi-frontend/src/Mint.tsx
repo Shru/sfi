@@ -6,6 +6,7 @@ import axios from 'axios';
 import SoulboundTokenABI from '../../artifacts/contracts/SoulboundToken.sol/SoulboundToken.json';
 import { writeContract } from 'wagmi/actions';
 import { wagmiConfig } from './wallet';
+import { JsonRpcProvider, Contract } from 'ethers';
 
 // TODO: For production, store this in an .env file and do not commit it!
 const PINATA_API_KEY = '78753aeeaa58553fa2bf';
@@ -33,6 +34,32 @@ function Mint() {
       navigate('/');
     }
   }, [isConnected, navigate]);
+
+  // Auto-populate socials if user has already minted
+  useEffect(() => {
+    async function fetchAndPopulateSocials() {
+      if (!isConnected || !address) return;
+      try {
+        const provider = new JsonRpcProvider('https://sepolia.base.org');
+        const contract = new Contract(CONTRACT_ADDRESS, SoulboundTokenABI.abi, provider);
+        const tokenId = await contract.addressToTokenId(address);
+        if (tokenId.toString() === '0') return; // No SBT minted
+        const tokenURI = await contract.tokenURI(tokenId);
+        const ipfsUrl = tokenURI.replace('ipfs://', 'https://ipfs.io/ipfs/');
+        const metadata = await fetch(ipfsUrl).then(res => res.json());
+        if (metadata.socials) {
+          setForm({
+            twitter: metadata.socials.twitter || '',
+            linkedin: metadata.socials.linkedin || '',
+            instagram: metadata.socials.instagram || '',
+          });
+        }
+      } catch (err) {
+        // Silently fail if fetch fails
+      }
+    }
+    fetchAndPopulateSocials();
+  }, [isConnected, address]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -126,33 +153,42 @@ function Mint() {
         <h1 className="soul-title-black">Enter Your Socials</h1>
         <p className="mint-subtitle">Mint your Soulbound Token with your social links</p>
         <form className="mint-form" onSubmit={handleSubmit}>
-          <input
-            type="text"
-            name="twitter"
-            placeholder="Twitter handle"
-            value={form.twitter}
-            onChange={handleChange}
-            className="mint-input"
-            autoComplete="off"
-          />
-          <input
-            type="text"
-            name="linkedin"
-            placeholder="LinkedIn profile"
-            value={form.linkedin}
-            onChange={handleChange}
-            className="mint-input"
-            autoComplete="off"
-          />
-          <input
-            type="text"
-            name="instagram"
-            placeholder="Instagram handle"
-            value={form.instagram}
-            onChange={handleChange}
-            className="mint-input"
-            autoComplete="off"
-          />
+          <div className="mint-input-group">
+            <label htmlFor="twitter" className="mint-label">Twitter handle</label>
+            <input
+              id="twitter"
+              type="text"
+              name="twitter"
+              value={form.twitter}
+              onChange={handleChange}
+              className="mint-input"
+              autoComplete="off"
+            />
+          </div>
+          <div className="mint-input-group">
+            <label htmlFor="linkedin" className="mint-label">LinkedIn profile</label>
+            <input
+              id="linkedin"
+              type="text"
+              name="linkedin"
+              value={form.linkedin}
+              onChange={handleChange}
+              className="mint-input"
+              autoComplete="off"
+            />
+          </div>
+          <div className="mint-input-group">
+            <label htmlFor="instagram" className="mint-label">Instagram handle</label>
+            <input
+              id="instagram"
+              type="text"
+              name="instagram"
+              value={form.instagram}
+              onChange={handleChange}
+              className="mint-input"
+              autoComplete="off"
+            />
+          </div>
           <button type="submit" className="mint-btn" style={{marginTop: '0.5rem'}} disabled={loading || !isConnected}>
             {loading ? 'Minting...' : 'Mint SBT'}
           </button>
