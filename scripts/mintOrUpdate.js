@@ -3,7 +3,7 @@ require("dotenv").config();
 
 async function main() {
   // Replace with your deployed contract address
-  const contractAddress = "0x79485FAAc82C16301C20177392bBE6C5da8c753a";
+  const contractAddress = "0x026a85733caac36A773aC3725241012faBbf9800";
   // Replace with your actual IPFS URI when ready
   const tokenURI = "ipfs://QmPlaceholderMetadataHash";
 

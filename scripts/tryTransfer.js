@@ -1,6 +1,6 @@
 async function main() {
     const [deployer] = await ethers.getSigners();
-    const address = "0x8a1Ea3d1b5997AE8060A31348A4535fD61368e3f";
+    const address = "0x026a85733caac36A773aC3725241012faBbf9800";
     const SoulboundToken = await ethers.getContractAt("SoulboundToken", address);
   
     // Replace with any valid Ethereum address (not your own)
