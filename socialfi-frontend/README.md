@@ -2,80 +2,55 @@
 
 This is the frontend for the SocialFi Soulbound Token (SBT) dApp. It allows users to connect their wallet, enter their social media handles, and mint a non-transferable SBT on Base Sepolia.
 
-## Project Initialization
-
-This project was bootstrapped with [Vite](https://vitejs.dev/) and the React + TypeScript template:
-
-```bash
-npm create vite@latest socialfi-frontend -- --template react-ts
-```
-
-## Key Dependencies
-
-The following packages are used for wallet connection, blockchain interaction, and routing:
-
-```bash
-npm install wagmi @rainbow-me/rainbowkit @tanstack/react-query viem react-router-dom
-```
-
-## Prerequisites
-
-- [Node.js](https://nodejs.org/) (v18 or v20 recommended)
-- [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/)
-
 ## Getting Started
 
+Follow these steps to set up and run the project after cloning:
+
 1. **Install dependencies**
-
-   All required dependencies (including wallet and blockchain libraries) are already listed in `package.json`. If you are missing any, use the install command above.
-
-   Using npm:
    ```bash
    npm install
-   ```
-   Or using yarn:
-   ```bash
+   # or
    yarn install
    ```
 
-2. **Run the development server**
+2. **Set up environment variables** (if required)
+   - If you are using Pinata for IPFS uploads, create a `.env` file and add your Pinata API keys:
+     ```env
+     VITE_PINATA_API_KEY=your_pinata_api_key
+     VITE_PINATA_API_SECRET=your_pinata_api_secret
+     ```
+   - If you want to use your own WalletConnect project ID, add it as well:
+     ```env
+     VITE_WALLETCONNECT_PROJECT_ID=your_walletconnect_project_id
+     ```
+   - Update the code in `src/Mint.tsx` and `src/wallet.tsx` to use these environment variables if not already set.
 
-   Using npm:
+3. **Update contract address and ABI**
+   - If you have deployed your own contract, update the contract address and ABI in `src/Mint.tsx`.
+   - Also update the contract address in the scripts in the `scripts/` directory (`mintOrUpdate.js`, `tryTransfer.js`).
+
+4. **Run the development server**
    ```bash
    npm run dev
-   ```
-   Or using yarn:
-   ```bash
+   # or
    yarn dev
    ```
+   The app will be available at [http://localhost:5173](http://localhost:5173) by default.
 
-   The app will be available at [http://localhost:5173](http://localhost:5173) by default (Vite default port).
-
-3. **Build for production**
-
-   Using npm:
+5. **Build for production** (optional)
    ```bash
    npm run build
-   ```
-   Or using yarn:
-   ```bash
+   # or
    yarn build
    ```
-
    The production-ready static files will be output to the `dist/` directory.
 
-4. **Preview the production build locally**
-
-   Using npm:
+6. **Preview the production build locally** (optional)
    ```bash
    npm run preview
-   ```
-   Or using yarn:
-   ```bash
+   # or
    yarn preview
    ```
-
-   This will serve the built app locally for testing before deployment.
 
 ## Features
 - Connect your wallet (MetaMask, WalletConnect, etc.)
@@ -106,5 +81,21 @@ npm install wagmi @rainbow-me/rainbowkit @tanstack/react-query viem react-router
 - Use your own Pinata API keys and WalletConnect project ID for production security.
 
 ---
+
+## Historical Context
+
+This project was bootstrapped with [Vite](https://vitejs.dev/) and the React + TypeScript template:
+
+```bash
+npm create vite@latest socialfi-frontend -- --template react-ts
+```
+
+### Key Dependencies
+
+The following packages are used for wallet connection, blockchain interaction, and routing:
+
+```bash
+npm install wagmi @rainbow-me/rainbowkit @tanstack/react-query viem react-router-dom
+```
 
 For backend/smart contract setup, see the main project README.
