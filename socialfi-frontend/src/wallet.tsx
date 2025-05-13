@@ -6,7 +6,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 const config = getDefaultConfig({
   appName: 'SocialFi SBT',
-  projectId: '6aeaaa100e0982e72b24b85064015a74', // You can get this from https://cloud.walletconnect.com/
+  projectId: import.meta.env.VITE_WALLETCONNECT_PROJECT_ID, // You can get this from https://cloud.walletconnect.com/
   chains: [baseSepolia],
   ssr: false,
 });

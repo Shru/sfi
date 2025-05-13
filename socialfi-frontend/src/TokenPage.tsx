@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import SoulboundTokenABI from '../../artifacts/contracts/SoulboundToken.sol/SoulboundToken.json';
 import { JsonRpcProvider, Contract } from 'ethers';
 
-const CONTRACT_ADDRESS = '0x026a85733caac36A773aC3725241012faBbf9800';
+const CONTRACT_ADDRESS = import.meta.env.VITE_CONTRACT_ADDRESS;
 
 function TokenPage() {
   const { tokenId } = useParams();

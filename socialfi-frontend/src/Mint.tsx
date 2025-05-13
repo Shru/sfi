@@ -9,10 +9,10 @@ import { wagmiConfig } from './wallet';
 import { JsonRpcProvider, Contract } from 'ethers';
 
 // TODO: For production, store this in an .env file and do not commit it!
-const PINATA_API_KEY = '78753aeeaa58553fa2bf';
-const PINATA_API_SECRET = '19de304e1b414a33e839d37b221b893f1b549523568d200e561858bccfb917a6';
+const PINATA_API_KEY = import.meta.env.VITE_PINATA_API_KEY;
+const PINATA_API_SECRET = import.meta.env.VITE_PINATA_API_SECRET;
 
-const CONTRACT_ADDRESS = '0x026a85733caac36A773aC3725241012faBbf9800';
+const CONTRACT_ADDRESS = import.meta.env.VITE_CONTRACT_ADDRESS;
 
 function Mint() {
 
