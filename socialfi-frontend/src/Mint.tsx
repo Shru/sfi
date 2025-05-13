@@ -28,6 +28,7 @@ function Mint() {
   const { disconnect } = useDisconnect();
   const { address, connector, isConnected } = useAccount();
   const navigate = useNavigate();
+  const [mintedTokenId, setMintedTokenId] = useState<string | null>(null);
 
   useEffect(() => {
     if (!isConnected) {
@@ -54,6 +55,7 @@ function Mint() {
             github: metadata.socials.github || '',
           });
         }
+        setMintedTokenId(tokenId.toString()); // Show the shareable link if already minted
       } catch (err) {
         // Silently fail if fetch fails
       }
@@ -108,6 +110,11 @@ function Mint() {
         }
       );
       setTxHash(tx);
+      // Fetch tokenId for the current user
+      const provider = new JsonRpcProvider('https://sepolia.base.org');
+      const contract = new Contract(CONTRACT_ADDRESS, SoulboundTokenABI.abi, provider);
+      const tokenId = await contract.addressToTokenId(address);
+      setMintedTokenId(tokenId.toString());
     } catch (err: any) {
       console.error("Minting error:", err);
       setError(err.message || "Minting failed");
@@ -201,6 +208,11 @@ function Mint() {
         {txHash && (
           <div style={{ marginTop: '1rem', color: 'green' }}>
             Minted! Tx: <a href={`https://sepolia.basescan.org/tx/${txHash}`} target="_blank" rel="noopener noreferrer">{txHash.slice(0, 10)}...</a>
+          </div>
+        )}
+        {mintedTokenId && (
+          <div style={{ marginTop: '1rem', color: 'blue' }}>
+            View your token: <a href={`/token/${mintedTokenId}`} target="_blank" rel="noopener noreferrer">{window.location.origin}/token/{mintedTokenId}</a>
           </div>
         )}
         {error && <div style={{ marginTop: '1rem', color: 'red' }}>{error}</div>}
