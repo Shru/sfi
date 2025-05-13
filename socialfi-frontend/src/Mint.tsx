@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { useDisconnect, useAccount } from 'wagmi';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import SoulboundTokenABI from '../../artifacts/contracts/SoulboundToken.sol/SoulboundToken.json';
+import SoulboundTokenABI from './abi/SoulboundToken.json';
 import { writeContract } from 'wagmi/actions';
 import { wagmiConfig } from './wallet';
 import { JsonRpcProvider, Contract } from 'ethers';
