@@ -19,7 +19,7 @@ function Mint() {
   const [form, setForm] = useState({
     twitter: '',
     linkedin: '',
-    instagram: '',
+    github: '',
   });
   const [loading, setLoading] = useState(false);
   const [ipfsCid, setIpfsCid] = useState('');
@@ -51,7 +51,7 @@ function Mint() {
           setForm({
             twitter: metadata.socials.twitter || '',
             linkedin: metadata.socials.linkedin || '',
-            instagram: metadata.socials.instagram || '',
+            github: metadata.socials.github || '',
           });
         }
       } catch (err) {
@@ -178,15 +178,15 @@ function Mint() {
             />
           </div>
           <div className="mint-input-group">
-            <label htmlFor="instagram" className="mint-label">Instagram handle</label>
+            <label htmlFor="github" className="mint-label">GitHub username</label>
             <input
-              id="instagram"
+              id="github"
               type="text"
-              name="instagram"
-              value={form.instagram}
+              name="github"
+              value={form.github}
               onChange={handleChange}
+              placeholder="e.g. shruti-github"
               className="mint-input"
-              autoComplete="off"
             />
           </div>
           <button type="submit" className="mint-btn" style={{marginTop: '0.5rem'}} disabled={loading || !isConnected}>
