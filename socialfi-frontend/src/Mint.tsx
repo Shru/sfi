@@ -1,6 +1,6 @@
 import './App.css';
 import { useState, useEffect } from 'react';
-import { useDisconnect, useAccount } from 'wagmi';
+import { useDisconnect, useAccount, useNetwork, useSwitchNetwork } from 'wagmi';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import SoulboundTokenABI from './abi/SoulboundToken.json';
@@ -29,6 +29,8 @@ function Mint() {
   const { address, connector, isConnected } = useAccount();
   const navigate = useNavigate();
   const [mintedTokenId, setMintedTokenId] = useState<string | null>(null);
+  const { chain } = useNetwork();
+  const { switchNetwork } = useSwitchNetwork();
 
   useEffect(() => {
     if (!isConnected) {
@@ -147,6 +149,30 @@ function Mint() {
     });
     navigate('/');
   };
+
+  // Add network check before rendering the form
+  if (chain?.id !== 84532) {
+    return (
+      <div className="soul-bg">
+        <div className="soul-content mint-card mint-app-card">
+          <h2 style={{color: 'red'}}>Wrong Network</h2>
+          <p>Please switch your wallet to <b>Base Sepolia</b> to use this app.</p>
+          {switchNetwork && (
+            <button className="mint-btn" onClick={() => switchNetwork(84532)}>
+              Switch to Base Sepolia
+            </button>
+          )}
+          <div style={{marginTop: '1rem', fontSize: '0.95rem', color: '#333', textAlign: 'left'}}>
+            <b>Network Name:</b> Base Sepolia<br />
+            <b>RPC URL:</b> https://sepolia.base.org<br />
+            <b>Chain ID:</b> 84532<br />
+            <b>Currency Symbol:</b> ETH<br />
+            <b>Block Explorer:</b> <a href="https://sepolia-explorer.base.org" target="_blank" rel="noopener noreferrer">Base Sepolia Explorer</a>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="soul-bg">
