@@ -45,13 +45,13 @@ function TokenPage() {
   return (
     <div className="soul-bg">
       <div className="soul-content mint-card mint-app-card">
-        <h1 className="soul-title-black">Soulbound Token #{tokenId}</h1>
-        <div style={{marginBottom:'1rem'}}>
+        {/* <h1 className="soul-title-black">Soulbound Token #{tokenId}</h1> */}
+        {/* <div style={{marginBottom:'1rem'}}>
           <b>Owner:</b> <a href={`https://sepolia.basescan.org/address/${owner}`} target="_blank" rel="noopener noreferrer">{owner}</a>
-        </div>
-        <div style={{marginBottom:'1rem'}}>
+        </div> */}
+        {/* <div style={{marginBottom:'1rem'}}>
           <b>IPFS:</b> <a href={`https://ipfs.io/ipfs/${ipfsCid}`} target="_blank" rel="noopener noreferrer">{ipfsCid}</a>
-        </div>
+        </div> */}
         <div style={{marginBottom:'1rem'}}>
           <b>Socials:</b>
           <div style={{display:'flex', flexDirection:'column', gap:'0.5rem', marginTop:'0.5rem'}}>

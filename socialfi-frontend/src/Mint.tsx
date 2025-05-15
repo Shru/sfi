@@ -8,6 +8,9 @@ import SoulboundTokenABI from './abi/SoulboundToken.json';
 import { writeContract } from 'wagmi/actions';
 import { wagmiConfig } from './wallet';
 import { JsonRpcProvider, Contract } from 'ethers';
+import BoyNFT from './assets/Boy-NFT.png';
+import GirlNFT from './assets/Girl-NFT.png';
+import SoulLinkNFT from './assets/Soul-link.png';
 
 // TODO: For production, store this in an .env file and do not commit it!
 const PINATA_API_KEY = import.meta.env.VITE_PINATA_API_KEY;
@@ -32,6 +35,7 @@ function Mint() {
   const [mintedTokenId, setMintedTokenId] = useState<string | null>(null);
   const chainId = useChainId();
   const { switchChain } = useSwitchChain();
+  const [selectedToken, setSelectedToken] = useState<'boy' | 'girl' | 'soul' | null>(null);
 
   useEffect(() => {
     if (!isConnected) {
@@ -222,10 +226,19 @@ function Mint() {
               className="mint-input"
             />
           </div>
+          <div style={{ margin: '1.2rem 0 0.7rem 0', width: '100%' }}>
+            <h2 style={{ fontSize: '1.2rem', fontWeight: 600, margin: '0 0 0.7rem 0', textAlign: 'left' }}>Pick your token</h2>
+            <div style={{ display: 'flex', gap: '1.2rem', justifyContent: 'center', marginBottom: '1.2rem' }}>
+              <img src={BoyNFT} alt="Boy NFT" onClick={() => setSelectedToken('boy')} style={{ border: selectedToken === 'boy' ? '3px solid #2257f6' : '2px solid #ccc', borderRadius: '1rem', width: 72, height: 72, objectFit: 'cover', cursor: 'pointer', transition: 'border 0.2s' }} />
+              <img src={GirlNFT} alt="Girl NFT" onClick={() => setSelectedToken('girl')} style={{ border: selectedToken === 'girl' ? '3px solid #2257f6' : '2px solid #ccc', borderRadius: '1rem', width: 72, height: 72, objectFit: 'cover', cursor: 'pointer', transition: 'border 0.2s' }} />
+              <img src={SoulLinkNFT} alt="Soul Link NFT" onClick={() => setSelectedToken('soul')} style={{ border: selectedToken === 'soul' ? '3px solid #2257f6' : '2px solid #ccc', borderRadius: '1rem', width: 72, height: 72, objectFit: 'cover', cursor: 'pointer', transition: 'border 0.2s' }} />
+            </div>
+          </div>
           <button type="submit" className="mint-btn" style={{marginTop: '0.5rem'}} disabled={loading || !isConnected}>
             {loading ? 'Minting...' : 'Create'}
           </button>
         </form>
+        {/*
         {ipfsCid && (
           <div style={{ marginTop: '1rem', color: 'green' }}>
             Uploaded! IPFS: <a href={`https://ipfs.io/ipfs/${ipfsCid}`} target="_blank" rel="noopener noreferrer">{ipfsCid}</a>
@@ -236,6 +249,7 @@ function Mint() {
             Minted! Tx: <a href={`https://sepolia.basescan.org/tx/${txHash}`} target="_blank" rel="noopener noreferrer">{txHash.slice(0, 10)}...</a>
           </div>
         )}
+        */}
         {mintedTokenId && (
           <div style={{ marginTop: '1rem', color: 'blue' }}>
             View your token: <a href={`/token/${mintedTokenId}`} target="_blank" rel="noopener noreferrer">{window.location.origin}/token/{mintedTokenId}</a>
