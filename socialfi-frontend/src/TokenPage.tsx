@@ -37,11 +37,12 @@ function TokenPage() {
   if (!metadata) return <div className="soul-bg"><div className="soul-content">No metadata found.</div></div>;
 
   const { socials, image } = metadata;
+  const imageUrl = image?.startsWith('ipfs://') ? image.replace('ipfs://', 'https://ipfs.io/ipfs/') : image;
   return (
     <div className="soul-bg">
       <div className="soul-content mint-card mint-app-card">
         {image && (
-          <img src={image} alt="NFT" style={{ width: 120, height: 120, objectFit: 'cover', borderRadius: '1rem', marginBottom: '1.2rem' }} />
+          <img src={imageUrl} alt="NFT" style={{ width: 120, height: 120, objectFit: 'cover', borderRadius: '1rem', marginBottom: '1.2rem' }} onError={e => { e.currentTarget.onerror = null; e.currentTarget.src = 'https://via.placeholder.com/120?text=No+Image'; }} />
         )}
         <div style={{marginBottom:'1rem'}}>
           <b>Socials:</b>
