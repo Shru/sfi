@@ -113,11 +113,12 @@ function Mint() {
     try {
       // Upload image to IPFS and get the IPFS URL
       const ipfsImageUrl = await uploadImageToIPFS(imageUrl);
+      const httpImageUrl = ipfsImageUrl.replace('ipfs://', 'https://ipfs.io/ipfs/');
       const metadata = {
         name: 'SocialFi SBT',
         description: 'Soulbound Token for social links',
         socials: { ...form },
-        image: ipfsImageUrl,
+        image: httpImageUrl,
       };
 
       const url = `https://api.pinata.cloud/pinning/pinJSONToIPFS`;
