@@ -46,8 +46,6 @@ function Mint() {
     github: '',
   });
   const [loading, setLoading] = useState(false);
-  const [ipfsCid, setIpfsCid] = useState('');
-  const [txHash, setTxHash] = useState('');
   const [error, setError] = useState('');
   const { disconnect } = useDisconnect();
   const { address, connector, isConnected } = useAccount();
@@ -98,8 +96,6 @@ function Mint() {
     e.preventDefault();
     setLoading(true);
     setError('');
-    setTxHash('');
-    setIpfsCid('');
     if (!isConnected) {
       setError('Wallet is not connected. Please reconnect and try again.');
       setLoading(false);
@@ -134,7 +130,6 @@ function Mint() {
       });
 
       const cid = res.data.IpfsHash;
-      setIpfsCid(cid);
       const tokenURI = `ipfs://${cid}`;
 
       // Use viem's writeContract to call mintOrUpdate
@@ -147,7 +142,6 @@ function Mint() {
           args: [tokenURI],
         }
       );
-      setTxHash(tx);
       // Fetch tokenId for the current user
       const provider = new JsonRpcProvider('https://sepolia.base.org');
       const contract = new Contract(CONTRACT_ADDRESS, SoulboundTokenABI.abi, provider);

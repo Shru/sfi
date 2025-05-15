@@ -8,8 +8,6 @@ const CONTRACT_ADDRESS = import.meta.env.VITE_CONTRACT_ADDRESS;
 function TokenPage() {
   const { tokenId } = useParams();
   const [metadata, setMetadata] = useState<any>(null);
-  const [owner, setOwner] = useState('');
-  const [ipfsCid, setIpfsCid] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
@@ -22,11 +20,8 @@ function TokenPage() {
         const contract = new Contract(CONTRACT_ADDRESS, SoulboundTokenABI.abi, provider);
         const tokenURI = await contract.tokenURI(tokenId);
         const ipfsUrl = tokenURI.replace('ipfs://', 'https://ipfs.io/ipfs/');
-        setIpfsCid(ipfsUrl.split('/').pop());
         const meta = await fetch(ipfsUrl).then(res => res.json());
         setMetadata(meta);
-        const ownerAddr = await contract.ownerOf(tokenId);
-        setOwner(ownerAddr);
         // Try to get the transaction hash (not directly available, so skip for now)
       } catch (err: any) {
         setError('Failed to fetch token data.');
