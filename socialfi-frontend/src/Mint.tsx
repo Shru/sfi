@@ -18,6 +18,26 @@ const PINATA_API_SECRET = import.meta.env.VITE_PINATA_API_SECRET;
 
 const CONTRACT_ADDRESS = import.meta.env.VITE_CONTRACT_ADDRESS;
 
+// Helper to upload image to IPFS via Pinata
+async function uploadImageToIPFS(imageUrl: string): Promise<string> {
+  const response = await fetch(imageUrl);
+  const blob = await response.blob();
+  const formData = new FormData();
+  formData.append('file', blob, 'nft-image.png');
+  const url = `https://api.pinata.cloud/pinning/pinFileToIPFS`;
+  const res = await fetch(url, {
+    method: 'POST',
+    headers: {
+      pinata_api_key: PINATA_API_KEY,
+      pinata_secret_api_key: PINATA_API_SECRET,
+    } as any,
+    body: formData,
+  });
+  if (!res.ok) throw new Error('Failed to upload image to IPFS');
+  const data = await res.json();
+  return `ipfs://${data.IpfsHash}`;
+}
+
 function Mint() {
 
   const [form, setForm] = useState({
@@ -85,12 +105,23 @@ function Mint() {
       setLoading(false);
       return;
     }
+    if (!selectedToken) {
+      setError('Please select a token image.');
+      setLoading(false);
+      return;
+    }
+    let imageUrl = '';
+    if (selectedToken === 'boy') imageUrl = BoyNFT;
+    if (selectedToken === 'girl') imageUrl = GirlNFT;
+    if (selectedToken === 'soul') imageUrl = SoulLinkNFT;
     try {
+      // Upload image to IPFS and get the IPFS URL
+      const ipfsImageUrl = await uploadImageToIPFS(imageUrl);
       const metadata = {
         name: 'SocialFi SBT',
         description: 'Soulbound Token for social links',
         socials: { ...form },
-        image: undefined, // Optionally add an image
+        image: ipfsImageUrl,
       };
 
       const url = `https://api.pinata.cloud/pinning/pinJSONToIPFS`;

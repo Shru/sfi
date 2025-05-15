@@ -41,17 +41,13 @@ function TokenPage() {
   if (error) return <div className="soul-bg"><div className="soul-content" style={{color:'red'}}>{error}</div></div>;
   if (!metadata) return <div className="soul-bg"><div className="soul-content">No metadata found.</div></div>;
 
-  const { socials } = metadata;
+  const { socials, image } = metadata;
   return (
     <div className="soul-bg">
       <div className="soul-content mint-card mint-app-card">
-        {/* <h1 className="soul-title-black">Soulbound Token #{tokenId}</h1> */}
-        {/* <div style={{marginBottom:'1rem'}}>
-          <b>Owner:</b> <a href={`https://sepolia.basescan.org/address/${owner}`} target="_blank" rel="noopener noreferrer">{owner}</a>
-        </div> */}
-        {/* <div style={{marginBottom:'1rem'}}>
-          <b>IPFS:</b> <a href={`https://ipfs.io/ipfs/${ipfsCid}`} target="_blank" rel="noopener noreferrer">{ipfsCid}</a>
-        </div> */}
+        {image && (
+          <img src={image} alt="NFT" style={{ width: 120, height: 120, objectFit: 'cover', borderRadius: '1rem', marginBottom: '1.2rem' }} />
+        )}
         <div style={{marginBottom:'1rem'}}>
           <b>Socials:</b>
           <div style={{display:'flex', flexDirection:'column', gap:'0.5rem', marginTop:'0.5rem'}}>
@@ -66,11 +62,8 @@ function TokenPage() {
             )}
           </div>
         </div>
-        <div style={{marginTop:'2rem'}}>
-          <b>Share this token:</b>
-          <div style={{marginTop:'0.5rem'}}>
-            <input style={{width:'100%'}} value={window.location.href} readOnly onClick={e => (e.target as HTMLInputElement).select()} />
-          </div>
+        <div style={{marginTop:'2rem', textAlign:'center'}}>
+          <a href={window.location.href} target="_blank" rel="noopener noreferrer" style={{fontWeight:600, color:'#2257f6', textDecoration:'underline', fontSize:'1.05rem'}}>Share this token</a>
         </div>
       </div>
     </div>
