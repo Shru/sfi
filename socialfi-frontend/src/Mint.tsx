@@ -178,14 +178,13 @@ function Mint() {
   return (
     <div className="soul-bg">
       <div className="soul-content mint-card mint-app-card">
-        <div className="mint-header-row">
+        <div className="mint-header-row" style={{ marginBottom: '2.2rem' }}>
           <span className="wallet-address">{shortAddress}</span>
           <button className="disconnect-btn" onClick={handleDisconnect}>
             Disconnect
           </button>
         </div>
-        <h1 className="soul-title-black">Enter Your Socials</h1>
-        <p className="mint-subtitle">Mint your Soulbound Token with your social links</p>
+        <h1 className="soul-title-black" style={{ marginTop: 0 }}>Enter Your Socials</h1>
         <form className="mint-form" onSubmit={handleSubmit}>
           <div className="mint-input-group">
             <label htmlFor="twitter" className="mint-label">Twitter handle</label>
@@ -224,7 +223,7 @@ function Mint() {
             />
           </div>
           <button type="submit" className="mint-btn" style={{marginTop: '0.5rem'}} disabled={loading || !isConnected}>
-            {loading ? 'Minting...' : 'Mint SBT'}
+            {loading ? 'Minting...' : 'Create'}
           </button>
         </form>
         {ipfsCid && (

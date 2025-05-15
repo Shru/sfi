@@ -21,10 +21,10 @@ function Landing() {
       <div className="soul-content">
         <h1 className="soul-title-blue">SoulLink</h1>
         <p className="soul-tagline-quote">Create your socials NFT and share it!</p>
-        <div className="soul-powered-row">
+        <div className="soul-powered-row" style={{ marginBottom: '1.2em' }}>
           <span>Powered by</span>
+          <span style={{ width: '0.1em', display: 'inline-block' }}></span>
           <img src={baseLogo} alt="Base logo" className="soul-powered-logo" />
-          <span>@Base</span>
         </div>
         <img src={sbtBg} alt="Soulbound illustration" className="soul-illustration" />
         <div className="soul-connect-btn">
