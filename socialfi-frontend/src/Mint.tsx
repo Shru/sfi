@@ -133,7 +133,7 @@ function Mint() {
       const tokenURI = `ipfs://${cid}`;
 
       // Use viem's writeContract to call mintOrUpdate
-      const tx = await writeContract(
+      await writeContract(
         wagmiConfig,
         {
           address: CONTRACT_ADDRESS as `0x${string}`,
