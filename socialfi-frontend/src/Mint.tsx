@@ -1,6 +1,7 @@
 import './App.css';
 import { useState, useEffect } from 'react';
-import { useDisconnect, useAccount, useNetwork, useSwitchNetwork } from 'wagmi';
+import { useDisconnect, useAccount } from 'wagmi';
+import { useChainId, useSwitchChain } from 'wagmi';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import SoulboundTokenABI from './abi/SoulboundToken.json';
@@ -29,8 +30,8 @@ function Mint() {
   const { address, connector, isConnected } = useAccount();
   const navigate = useNavigate();
   const [mintedTokenId, setMintedTokenId] = useState<string | null>(null);
-  const { chain } = useNetwork();
-  const { switchNetwork } = useSwitchNetwork();
+  const chainId = useChainId();
+  const { switchChain } = useSwitchChain();
 
   useEffect(() => {
     if (!isConnected) {
@@ -151,14 +152,14 @@ function Mint() {
   };
 
   // Add network check before rendering the form
-  if (chain?.id !== 84532) {
+  if (chainId !== 84532) {
     return (
       <div className="soul-bg">
         <div className="soul-content mint-card mint-app-card">
           <h2 style={{color: 'red'}}>Wrong Network</h2>
           <p>Please switch your wallet to <b>Base Sepolia</b> to use this app.</p>
-          {switchNetwork && (
-            <button className="mint-btn" onClick={() => switchNetwork(84532)}>
+          {switchChain && (
+            <button className="mint-btn" onClick={() => switchChain({ chainId: 84532 })}>
               Switch to Base Sepolia
             </button>
           )}
