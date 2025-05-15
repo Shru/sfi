@@ -251,3 +251,30 @@ body, #root {
     gap: 0.3rem;
   }
 }
+
+.soul-title-blue {
+  font-family: 'Space Grotesk', 'Inter', 'Segoe UI', Arial, sans-serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #2257f6;
+  margin-bottom: 0.5rem;
+  text-align: center;
+  letter-spacing: 0.01em;
+}
+
+.soul-powered-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4em;
+  margin-top: 0.5em;
+  font-size: 1.05rem;
+  color: #333;
+}
+
+.soul-powered-logo {
+  height: 1.2em;
+  width: auto;
+  vertical-align: middle;
+  margin-right: 0.2em;
+}
