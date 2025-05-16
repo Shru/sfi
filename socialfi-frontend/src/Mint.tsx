@@ -134,7 +134,7 @@ function Mint() {
       const tokenURI = `ipfs://${cid}`;
 
       // Use viem's writeContract to call mintOrUpdate
-      await writeContract(
+      const txHash = await writeContract(
         wagmiConfig,
         {
           address: CONTRACT_ADDRESS as `0x${string}`,
@@ -143,11 +143,26 @@ function Mint() {
           args: [tokenURI],
         }
       );
-      // Fetch tokenId for the current user
+
+      // Wait for transaction confirmation
       const provider = new JsonRpcProvider('https://sepolia.base.org');
+      if (txHash) {
+        await provider.waitForTransaction(txHash, 1, 60000); // Wait for 1 confirmation, up to 60s
+      } else {
+        // fallback: wait a bit if txHash is not available
+        await new Promise(res => setTimeout(res, 3000));
+      }
+
+      // Poll for the tokenId until it's set (max 5 seconds)
       const contract = new Contract(CONTRACT_ADDRESS, SoulboundTokenABI.abi, provider);
-      const tokenId = await contract.addressToTokenId(address);
-      setMintedTokenId(tokenId.toString());
+      let tokenId = 0, tries = 0;
+      while (tokenId === 0 && tries < 10) {
+        await new Promise(res => setTimeout(res, 500));
+        tokenId = await contract.addressToTokenId(address);
+        tries++;
+      }
+      if (tokenId !== 0) setMintedTokenId(tokenId.toString());
+      else setError("Token minting failed to confirm. Please refresh and check again.");
     } catch (err: any) {
       console.error("Minting error:", err);
       setError(err.message || "Minting failed");
