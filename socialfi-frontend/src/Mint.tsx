@@ -42,7 +42,8 @@ function Mint() {
 
   const [form, setForm] = useState({
     twitter: '',
-    linkedin: '',
+    farcaster: '',
+    basename: '',
     github: '',
   });
   const [loading, setLoading] = useState(false);
@@ -76,7 +77,8 @@ function Mint() {
         if (metadata.socials) {
           setForm({
             twitter: metadata.socials.twitter || '',
-            linkedin: metadata.socials.linkedin || '',
+            farcaster: metadata.socials.farcaster || '',
+            basename: metadata.socials.basename || '',
             github: metadata.socials.github || '',
           });
         }
@@ -233,7 +235,7 @@ function Mint() {
         <h1 className="soul-title-black" style={{ marginTop: 0 }}>Enter Your Socials</h1>
         <form className="mint-form" onSubmit={handleSubmit}>
           <div className="mint-input-group">
-            <label htmlFor="twitter" className="mint-label">Twitter handle</label>
+            <label htmlFor="twitter" className="mint-label">X (Twitter) handle</label>
             <input
               id="twitter"
               type="text"
@@ -242,18 +244,33 @@ function Mint() {
               onChange={handleChange}
               className="mint-input"
               autoComplete="off"
+              placeholder="e.g. myname"
             />
           </div>
           <div className="mint-input-group">
-            <label htmlFor="linkedin" className="mint-label">LinkedIn profile</label>
+            <label htmlFor="farcaster" className="mint-label">Farcaster username</label>
             <input
-              id="linkedin"
+              id="farcaster"
               type="text"
-              name="linkedin"
-              value={form.linkedin}
+              name="farcaster"
+              value={form.farcaster}
               onChange={handleChange}
               className="mint-input"
               autoComplete="off"
+              placeholder="e.g. myname"
+            />
+          </div>
+          <div className="mint-input-group">
+            <label htmlFor="basename" className="mint-label">Basename</label>
+            <input
+              id="basename"
+              type="text"
+              name="basename"
+              value={form.basename}
+              onChange={handleChange}
+              className="mint-input"
+              autoComplete="off"
+              placeholder="e.g. myname.base.eth"
             />
           </div>
           <div className="mint-input-group">
@@ -264,7 +281,7 @@ function Mint() {
               name="github"
               value={form.github}
               onChange={handleChange}
-              placeholder="e.g. mygithub"
+              placeholder="e.g. myname"
               className="mint-input"
             />
           </div>

@@ -2,6 +2,10 @@ import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import SoulboundTokenABI from './abi/SoulboundToken.json';
 import { JsonRpcProvider, Contract } from 'ethers';
+import BaseLogo from './assets/Base_Symbol_Blue.svg';
+import FarcasterLogo from './assets/transparent-purple.svg';
+import XLogo from './assets/logo-black.png';
+import GitHubLogo from './assets/GitHub_Invertocat_Dark.png';
 
 const CONTRACT_ADDRESS = import.meta.env.VITE_CONTRACT_ADDRESS;
 
@@ -48,13 +52,28 @@ function TokenPage() {
           <b>Socials:</b>
           <div style={{display:'flex', flexDirection:'column', gap:'0.5rem', marginTop:'0.5rem'}}>
             {socials?.twitter && (
-              <a href={`https://twitter.com/${socials.twitter}`} target="_blank" rel="noopener noreferrer">🐦 @{socials.twitter}</a>
+              <a href={`https://x.com/${socials.twitter}`} target="_blank" rel="noopener noreferrer">
+                <img src={XLogo} alt="X logo" style={{height: '1em', verticalAlign: 'middle', marginRight: 4}} />
+                @{socials.twitter}
+              </a>
             )}
-            {socials?.linkedin && (
-              <a href={`https://linkedin.com/in/${socials.linkedin}`} target="_blank" rel="noopener noreferrer">💼 {socials.linkedin}</a>
+            {socials?.farcaster && (
+              <a href={`https://warpcast.com/${socials.farcaster}`} target="_blank" rel="noopener noreferrer">
+                <img src={FarcasterLogo} alt="Farcaster logo" style={{height: '1em', verticalAlign: 'middle', marginRight: 4}} />
+                {socials.farcaster}
+              </a>
+            )}
+            {socials?.basename && (
+              <a href={`https://www.base.org/name/${socials.basename}`} target="_blank" rel="noopener noreferrer">
+                <img src={BaseLogo} alt="Basename" style={{height: '1em', verticalAlign: 'middle', marginRight: 4}} />
+                {socials.basename}
+              </a>
             )}
             {socials?.github && (
-              <a href={`https://github.com/${socials.github}`} target="_blank" rel="noopener noreferrer">💻 {socials.github}</a>
+              <a href={`https://github.com/${socials.github}`} target="_blank" rel="noopener noreferrer">
+                <img src={GitHubLogo} alt="GitHub logo" style={{height: '1em', verticalAlign: 'middle', marginRight: 4}} />
+                {socials.github}
+              </a>
             )}
           </div>
         </div>

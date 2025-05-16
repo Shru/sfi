@@ -4,7 +4,7 @@ import sbtBg from './assets/sbt-bg.jpeg';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAccount } from 'wagmi';
-import baseLogo from './assets/Base logo.png';
+import baseLogo from './assets/Base logo.svg';
 
 function Landing() {
   const navigate = useNavigate();
