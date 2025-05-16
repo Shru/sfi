@@ -119,6 +119,7 @@ function Mint() {
         description: 'Your SoulLink token for your socials',
         socials: { ...form },
         image: httpImageUrl,
+        updatedAt: Date.now(), // Ensures a new CID every update
       };
 
       const url = `https://api.pinata.cloud/pinning/pinJSONToIPFS`;
