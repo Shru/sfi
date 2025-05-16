@@ -18,3 +18,7 @@ ignition/deployments/chain-31337
 
 #Images
 /assets
+
+#Scripts
+/scripts/batchUpdate.js
+/scripts/updateTokenURI.js  

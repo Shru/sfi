@@ -115,8 +115,8 @@ function Mint() {
       const ipfsImageUrl = await uploadImageToIPFS(imageUrl);
       const httpImageUrl = ipfsImageUrl.replace('ipfs://', 'https://ipfs.io/ipfs/');
       const metadata = {
-        name: 'SocialFi SBT',
-        description: 'Soulbound Token for social links',
+        name: 'SoulLink',
+        description: 'Your SoulLink token for your socials',
         socials: { ...form },
         image: httpImageUrl,
       };
@@ -248,7 +248,7 @@ function Mint() {
               name="github"
               value={form.github}
               onChange={handleChange}
-              placeholder="e.g. shruti-github"
+              placeholder="e.g. mygithub"
               className="mint-input"
             />
           </div>
